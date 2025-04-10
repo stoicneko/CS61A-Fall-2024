@@ -59,8 +59,8 @@ def accumulate(fuse, start, n, term):
     19
     """
     "*** YOUR CODE HERE ***"
-    if n == 0:
-        return start
+    # if n == 0:
+    #     return start # 这段代码其实是多余的，n=0时，total也等于start
     total, k = start, 1
     while k <= n: # 如果fuse为mul，则total不能等于0
         total, k = fuse(total, term(k)), k + 1
@@ -112,14 +112,37 @@ def make_repeater(f, n):
     390625
     """
     "*** YOUR CODE HERE ***"
+    # 递归解法
     if n > 1:
 #        def compose(f, g):
 #            def h(x):
 #                return f(g(x))
 #            return h # h = f(g(x))
-            # 这里也可以
+            # 使用lambda定义函数 
         def compose(f, g):
             return lambda x: f(g(x))
         return compose(f, make_repeater(f, n-1))
     else:
         return f
+     
+     
+    # 官方解法
+def make_repeater_1(f, n):
+    """Returns the function that computes the nth application of f.
+
+    >>> add_three = make_repeater(increment, 3)
+    >>> add_three(5)
+    8
+    >>> make_repeater(triple, 5)(1) # 3 * (3 * (3 * (3 * (3 * 1))))
+    243
+    >>> make_repeater(square, 2)(5) # square(square(5))
+    625
+    >>> make_repeater(square, 3)(5) # square(square(square(5)))
+    390625
+    """
+    def repeater(x):
+        k = 0
+        while k < n:
+            x, k = f(x), k + 1 # 很重要，x = f(x), 每循环一次 f(f(x))
+        return x
+    return repeater
