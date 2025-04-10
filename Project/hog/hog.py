@@ -100,7 +100,7 @@ def num_factors(n):
     else:
         k, total = 2, 2
         while (k < n):
-            if n % k == 0: # 要计算的是n的factors
+            if n % k == 0: # 要计算的是n的factors, 注意该用哪个name
                 total += 1
             k += 1
         return total
