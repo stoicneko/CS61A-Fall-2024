@@ -197,6 +197,10 @@ def always_roll(n):
     assert n >= 0 and n <= 10
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
+    # def g(x, y): # 是接受2个参数还是是复合进去两个函数需要figure out
+    #         return n # 所以要读懂样例
+    # return g
+    return lambda x, y: n # 相当于f(x, y) = n, 转化成数学语言会不会更容易理解些？
     # END PROBLEM 6
 
 
@@ -226,8 +230,20 @@ def is_always_roll(strategy, goal=GOAL):
     >>> is_always_roll(catch_up)
     False
     """
-    # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    # 返回的是布尔值，或返回的值只有两种情况且互斥对立，先找出一种情况, 先找简单的情况，比如这里False的情况更简单, 找到这个固定的值是多少
+    # BEGIN PROBLEM 7 
+    "*** YOUR CODE HERE ***" # 就是strategy(0, 0)
+    score0 = 0
+    while score0 < goal:
+        score1 = 0
+        while score1 < goal:
+            if strategy(score0, score1) != strategy(0, 0):
+                return False
+            else:
+                score1 += 1
+        score0 += 1
+    return True
+
     # END PROBLEM 7
 
 
