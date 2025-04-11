@@ -22,14 +22,27 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    # total, k = 0, 1
+    # while k <= num_rolls:
+    #     tmp = total
+    #     total, k = total + dice(), k + 1
+    #     if tmp == 1 or total - tmp == 1: # 这里不能直接返回， 否则会没有循环够num的次数
+    #         total = 1 # 注意是tmp == 1不是totoal
+    # return total
+    # 实现的好丑陋。。 
+    # 4.11写到p9发现p1实现错了 // ，吗？
+
     total, k = 0, 1
     while k <= num_rolls:
         tmp = total
         total, k = total + dice(), k + 1
-        if tmp == 1 or total - tmp == 1: # 这里不能直接返回， 否则会没有循环够num的次数
-            total = 1 # 注意是tmp == 1不是totoal
+        if tmp == 1 or total - tmp == 1:
+            while k <= num_rolls:
+                dice() 
+                k = k + 1
+            return 1       
     return total
-    # 实现的好丑陋。。
+
     # END PROBLEM 1
 
 
@@ -280,6 +293,14 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    averaged_dice = make_averaged(roll_dice, times_called)
+    result, k = 1, 2
+    while k <= 10:
+        # max_a = averaged_dice(k, dice)
+        if averaged_dice(k, dice) > averaged_dice(result, dice):
+            result = k
+        k += 1
+    return result
 
     # END PROBLEM 9
 
