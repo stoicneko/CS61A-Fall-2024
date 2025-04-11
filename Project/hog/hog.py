@@ -260,6 +260,13 @@ def make_averaged(original_function, times_called=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    # 最终返回的是一个函数, 该函数接受参数返回float
+    def f(*args):
+        total, k = 0, 1
+        while k <= times_called:
+            total, k = total + original_function(*args), k + 1
+        return total / times_called
+    return f
     # END PROBLEM 8
 
 
@@ -273,6 +280,7 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+
     # END PROBLEM 9
 
 
