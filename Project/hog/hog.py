@@ -34,15 +34,24 @@ def roll_dice(num_rolls, dice=six_sided):
 
     total, k = 0, 1
     while k <= num_rolls:
-        tmp = total
-        total, k = total + dice(), k + 1
-        if tmp == 1 or total - tmp == 1:
+        result = dice()
+        total, k = total + result, k+1
+        if result == 1:
             while k <= num_rolls:
-                dice() 
-                k = k + 1
+                result = dice()
+                k += 1
             return 1       
     return total
 
+    # total, k = 0, 1
+    # while k < num_rolls:
+    #     result = dice()
+    #     print("DEBUG:", result)
+    #     if result == 1:
+    #         return 1
+    #     total += result
+    #     print("DEBUG:", total)
+    # return total
     # END PROBLEM 1
 
 
@@ -280,12 +289,12 @@ def make_averaged(original_function, times_called=1000):
             total, k = total + original_function(*args), k + 1
         return total / times_called
     return f
-    # END PROBLEM 8
+    # end problem 8
 
 
 def max_scoring_num_rolls(dice=six_sided, times_called=1000):
-    """Return the number of dice (1 to 10) that gives the maximum average score for a turn.
-    Assume that the dice always return positive outcomes.
+    """return the number of dice (1 to 10) that gives the maximum average score for a turn.
+    assume that the dice always return positive outcomes.
 
     >>> dice = make_test_dice(1, 6)
     >>> max_scoring_num_rolls(dice)
@@ -295,13 +304,22 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
     "*** YOUR CODE HERE ***"
     averaged_dice = make_averaged(roll_dice, times_called)
     result, k = 1, 2
+    max_score = averaged_dice(result, dice)
     while k <= 10:
-        # max_a = averaged_dice(k, dice)
-        if averaged_dice(k, dice) > averaged_dice(result, dice):
+        # max_a = averaged_dice(k, dice) 
+        # 还记得最初dice的特性吗 调用一次！可那是dice(), 这里是dice函数
+        # 是不是引用的dice不一样导致的？
+        # TIPS：print DEBUG
+        # 试试写两个循环？
+        # 难道是遗忘的柯里？
+        # 看报错， 是自己roll多了. 是的，如果代码正确应该刚好roll 55个
+        # if averaged_dice(k, dice) > averaged_dice(result, dice): #应该就是这里，比较多调用了一次a_d函数
+        score = averaged_dice(k, dice) # 用一个name存储函数返回的值，这样就只会调用一次
+        if score > max_score:
+            max_score = score
             result = k
         k += 1
     return result
-
     # END PROBLEM 9
 
 
