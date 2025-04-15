@@ -14,7 +14,16 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
-    #test commit
+    def compose(f, g):
+        return lambda x: f(g(x))
+    F = compose(f, g)
+    G = compose(g, f)
+    def identity(x):
+        if F(x) == G(x):
+            return True
+        else:
+            return False
+    return identity
 
 
 def sum_digits(y):
@@ -61,6 +70,18 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
+    def wrapped_condition(n):
+        i = 1
+        count = 0
+        while i <= n:
+            if condition(n, i):
+                count += 1
+            i += 1
+        return count
+
+    return wrapped_condition
+
+
 
 
 def multiple(a, b):
