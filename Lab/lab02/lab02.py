@@ -93,6 +93,27 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
+    def fd_common_factor(a, b):
+        n = min(a, b)
+        i = 2
+        while i <= n:
+            if a % i == 0 and b % i == 0:
+                return True
+            i += 1
+        return False
+    if not fd_common_factor(a, b):
+        return a * b 
+    else:
+        i = 1
+        n = max(a, b)
+        while True:
+            n += 1
+            if n % a == 0 and n % b == 0:
+                return n
+                    
+
+            
+
 
 
 
