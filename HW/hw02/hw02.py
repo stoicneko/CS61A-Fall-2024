@@ -9,7 +9,7 @@ triple = lambda x: 3 * x
 increment = lambda x: x + 1
 
 
-HW_SOURCE_FILE=__file__
+HW_SOURCE_FILE = __file__
 
 
 def product(n, term):
@@ -38,10 +38,9 @@ def product(n, term):
     return total
 
 
-
 def accumulate(fuse, start, n, term):
-    """Return the result of fusing together the first n terms in a sequence 
-    and start.  The terms to be fused are term(1), term(2), ..., term(n). 
+    """Return the result of fusing together the first n terms in a sequence
+    and start.  The terms to be fused are term(1), term(2), ..., term(n).
     The function fuse is a two-argument commutative & associative function.
 
     >>> accumulate(add, 0, 5, identity)  # 0 + 1 + 2 + 3 + 4 + 5
@@ -62,10 +61,9 @@ def accumulate(fuse, start, n, term):
     # if n == 0:
     #     return start # 这段代码其实是多余的，n=0时，total也等于start
     total, k = start, 1
-    while k <= n: # 如果fuse为mul，则total不能等于0
+    while k <= n:  # 如果fuse为mul，则total不能等于0
         total, k = fuse(total, term(k)), k + 1
     return total
-    
 
 
 def summation_using_accumulate(n, term):
@@ -114,19 +112,21 @@ def make_repeater(f, n):
     "*** YOUR CODE HERE ***"
     # 递归解法
     if n > 1:
-#        def compose(f, g):
-#            def h(x):
-#                return f(g(x))
-#            return h # h = f(g(x))
-            # 使用lambda定义函数 
+        #        def compose(f, g):
+        #            def h(x):
+        #                return f(g(x))
+        #            return h # h = f(g(x))
+        # 使用lambda定义函数
         def compose(f, g):
             return lambda x: f(g(x))
-        return compose(f, make_repeater(f, n-1))
+
+        return compose(f, make_repeater(f, n - 1))
     else:
         return f
-     
-     
+
     # 官方解法
+
+
 def make_repeater_1(f, n):
     """Returns the function that computes the nth application of f.
 
@@ -140,9 +140,11 @@ def make_repeater_1(f, n):
     >>> make_repeater(square, 3)(5) # square(square(square(5)))
     390625
     """
+
     def repeater(x):
         k = 0
         while k < n:
-            x, k = f(x), k + 1 # 很重要，x = f(x), 每循环一次 f(f(x))
+            x, k = f(x), k + 1  # 很重要，x = f(x), 每循环一次 f(f(x))
         return x
+
     return repeater

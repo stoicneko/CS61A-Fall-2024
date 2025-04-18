@@ -8,7 +8,7 @@ def digit(n, k):
     >>> digit(3579, 10)
     0
     """
-    return n % pow(10, k+1) // pow(10, k)
+    return n % pow(10, k + 1) // pow(10, k)
 
 
 def middle(a, b, c):
@@ -42,27 +42,25 @@ def falling(n, k):
     1
     """
     "*** YOUR CODE HERE ***"
-#    if k == 0:
-#        return 1
-#    if k == 1:
-#        return n
-#    factorial = n
-#    while k > 1: # 一开始忘了在循环里面加入 n -= 1
-#        factorial *= n-1
-#        n = n - 1
-#        k = k - 1
-#    return factorial
+    #    if k == 0:
+    #        return 1
+    #    if k == 1:
+    #        return n
+    #    factorial = n
+    #    while k > 1: # 一开始忘了在循环里面加入 n -= 1
+    #        factorial *= n-1
+    #        n = n - 1
+    #        k = k - 1
+    #    return factorial
 
     # Official solution(no recuision)
     if k == 0:
         return 1
-    total = n # total的概念很重要
+    total = n  # total的概念很重要
     i = 1
     while i < k:
-        total, i = total * (n-i), i + 1
+        total, i = total * (n - i), i + 1
     return total
-
-        
 
 
 def divisible_by_k(n, k):
@@ -102,17 +100,16 @@ def divisible_by_k(n, k):
     # solution2
     if k > n:
         return 0
-    i = 2 # 至少有一个数k
+    i = 2  # 至少有一个数k
     # num = 1 # how many num are divible by k
-    print(k) # 本身
+    print(k)  # 本身
     while k * i <= n:
-        print(k*i)
-        i += 1 
+        print(k * i)
+        i += 1
     return i - 1
 
 
-
-def sum_digits(y): # 先找特例, y < 10 直接 return y 
+def sum_digits(y):  # 先找特例, y < 10 直接 return y
     """Sum all the digits of y.
 
     >>> sum_digits(10) # 1 + 0 = 1
@@ -126,12 +123,13 @@ def sum_digits(y): # 先找特例, y < 10 直接 return y
     6
     """
     "*** YOUR CODE HERE ***"
-    if y < 10: # 递归跳出条件
+    if y < 10:  # 递归跳出条件
         return y
     else:
         all_but_last = y // 10
         return sum_digits(all_but_last) + y % 10
-        
+
+
 #     Official Solution
 #         """返回正整数 n 的所有数字位之和"""
 #         if y < 10:
@@ -139,6 +137,7 @@ def sum_digits(y): # 先找特例, y < 10 直接 return y
 #         else:
 #             all_but_last, last = y // 10, y % 10
 #             return sum_digits(all_but_last) + last
+
 
 def double_eights(n):
     """Return true if n has two eights in a row.
@@ -156,11 +155,11 @@ def double_eights(n):
     False
     """
     "*** YOUR CODE HERE ***"
-    identity = 0 # 相邻8的个数
-    i = 0 # 从右到左
+    identity = 0  # 相邻8的个数
+    i = 0  # 从右到左
     temp = n * 10
     while temp // 10 != 0:
-        if n % pow(10, i+1) // pow(10, i) == 8: # 从右到左依次遍历
+        if n % pow(10, i + 1) // pow(10, i) == 8:  # 从右到左依次遍历
             identity += 1
             if identity == 2:
                 return True
@@ -169,5 +168,3 @@ def double_eights(n):
         temp = temp // 10
         i += 1
     return False
-
-

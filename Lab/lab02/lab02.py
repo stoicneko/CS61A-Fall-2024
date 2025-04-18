@@ -117,6 +117,10 @@ def multiple(a, b):
                 return n
 
 
+# 这道题的官方解法更暴力，根本不用找什么公因数
+# 找公因数和直接一个一个试最小公倍数时间复杂度一样的?
+
+
 def cycle(f1, f2, f3):
     """Returns a function that is itself a higher-order function.
 
@@ -160,37 +164,66 @@ def cycle(f1, f2, f3):
     #
     #
 
-    def my_cycle(n):
-        # def f(x):
-        #     if x == 1:
-        #         return lambda y: f1(y)
-        #     elif x == 2:
-        #         return lambda y: f2(y)
-        #     else:
-        #         return lambda y: f3(y)
-        #
-        def f(x):
-            k = 1
-            while k <= n:  # 当n==0时不执行这个循环语句直接return x
-                if k % 3 == 1:
-                    x, k = (lambda y: f1(y))(x), k + 1
-                elif k % 3 == 2:
-                    x, k = (lambda y: f2(y))(x), k + 1
-                else:
-                    x, k = (lambda y: f3(y))(x), k + 1
-            return x
+    # def my_cycle(n):
+    # def f(x):
+    #     if x == 1:
+    #         return lambda y: f1(y)
+    #     elif x == 2:
+    #         return lambda y: f2(y)
+    #     else:
+    #         return lambda y: f3(y)
+    #
+    # def solution_1(x):
+    #     k = 1
+    #     while k <= n:  # 当n==0时不执行这个循环语句直接return x
+    #         if k % 3 == 1:
+    #             x, k = (lambda y: f1(y))(x), k + 1
+    #         elif k % 3 == 2:
+    #             x, k = (lambda y: f2(y))(x), k + 1
+    #         else:
+    #             x, k = (lambda y: f3(y))(x), k + 1
+    #     return x
+    # return solution_1
+    # 看了一下官方解法似乎逻辑不太一样
+    # 一样的一样的，只是官方解法k/i 是从0开始的
+    # solution 2
+    # def solution_2(x):
+    #     k = 1
+    #     while k <= n:  # 当n==0时不执行这个循环语句直接return x
+    #         if k % 3 == 1:
+    #             x = (lambda y: f1(y))(x)
+    #         if k % 3 == 2:
+    #             x = (lambda y: f2(y))(x)
+    #         if k % 3 == 3:
+    #             x = (lambda y: f3(y))(x)
+    #         k += 1
+    #     return x
+    # return solution_2
 
-        # def h(x):
-        #     k = 1
-        #     while k <= n:  # 当n==0时不执行这个循环语句直接return x
-        #         if k % 3 == 1:
-        #             x = (lambda y: f1(y))(x)
-        #         if k % 3 == 2:
-        #             x = (lambda y: f2(y))(x)
-        #         if k % 3 == 3:
-        #             x = (lambda y: f3(y))(x)
-        #         k += 1
-        #     return h
-        return f
+    # 这里还是只判断一次更好，即用if-elif-else
+    # 三个if 会让这个数判断三次，虽然这道题3个if条件互斥，但其他题可就不一定。根据逻辑来这个数只判断一次
+    # def solution_3(n):
+    #     def h(x):  # 定义一个新的h(x)函数，返回f1(x)....
+    #         i = 0
+    #         while i < n:
+    #             if i % 3 == 0:
+    #                 x = f1(x)
+    #             elif i % 3 == 1:
+    #                 x = f2(x)
+    #             else:
+    #                 x = f3(x)
+    #             i += 1
+    #         return x
+    #
+    #     return h
+    #
+    def recuisive_solv(n):
+        def h(x):
+            if n == 0:
+                return x
+            return cycle(f2, f3, f1)(n - 1)(f1(x))
 
-    return my_cycle
+        # 为什么是n -1 呢，
+        return h
+
+    return recuisive_solv
