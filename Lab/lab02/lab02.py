@@ -1,4 +1,3 @@
-
 def composite_identity(f, g):
     """
     Return a function with one parameter x that returns True if f(g(x)) is
@@ -14,15 +13,19 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
+
     def compose(f, g):
         return lambda x: f(g(x))
+
     F = compose(f, g)
     G = compose(g, f)
+
     def identity(x):
         if F(x) == G(x):
             return True
         else:
             return False
+
     return identity
 
 
@@ -32,6 +35,7 @@ def sum_digits(y):
     while y > 0:
         total, y = total + y % 10, y // 10
     return total
+
 
 def is_prime(n):
     """Return whether positive integer n is prime."""
@@ -43,6 +47,7 @@ def is_prime(n):
             return False
         k += 1
     return True
+
 
 def count_cond(condition):
     """Returns a function with one parameter N that counts all the numbers from
@@ -70,6 +75,7 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
+
     def wrapped_condition(n):
         i = 1
         count = 0
@@ -82,8 +88,6 @@ def count_cond(condition):
     return wrapped_condition
 
 
-
-
 def multiple(a, b):
     """Return the smallest number n that is a multiple of both a and b.
 
@@ -93,6 +97,7 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
+
     def fd_common_factor(a, b):
         n = min(a, b)
         i = 2
@@ -101,20 +106,15 @@ def multiple(a, b):
                 return True
             i += 1
         return False
+
     if not fd_common_factor(a, b):
-        return a * b 
+        return a * b
     else:
-        i = 1
         n = max(a, b)
         while True:
             n += 1
             if n % a == 0 and n % b == 0:
                 return n
-                    
-
-            
-
-
 
 
 def cycle(f1, f2, f3):
@@ -144,4 +144,53 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
+    """
+    my_cycle(n)(x)
 
+    if n == 3 f3(x)
+    if n == 2 f2(x)
+    """
+    # def make_repeater(f, n):
+    #     if n > 0:
+    #         def compose(f, g):
+    #             return lambda x: f(g(x))
+    #         return compose(f, make_repeater(f, n-1))
+    #     else:
+    #         return f
+    #
+    #
+
+    def my_cycle(n):
+        # def f(x):
+        #     if x == 1:
+        #         return lambda y: f1(y)
+        #     elif x == 2:
+        #         return lambda y: f2(y)
+        #     else:
+        #         return lambda y: f3(y)
+        #
+        def f(x):
+            k = 1
+            while k <= n:  # 当n==0时不执行这个循环语句直接return x
+                if k % 3 == 1:
+                    x, k = (lambda y: f1(y))(x), k + 1
+                elif k % 3 == 2:
+                    x, k = (lambda y: f2(y))(x), k + 1
+                else:
+                    x, k = (lambda y: f3(y))(x), k + 1
+            return x
+
+        # def h(x):
+        #     k = 1
+        #     while k <= n:  # 当n==0时不执行这个循环语句直接return x
+        #         if k % 3 == 1:
+        #             x = (lambda y: f1(y))(x)
+        #         if k % 3 == 2:
+        #             x = (lambda y: f2(y))(x)
+        #         if k % 3 == 3:
+        #             x = (lambda y: f3(y))(x)
+        #         k += 1
+        #     return h
+        return f
+
+    return my_cycle
