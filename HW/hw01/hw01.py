@@ -98,7 +98,6 @@ def hailstone(n):
     >>> b
     1
     """
-    "*** YOUR CODE HERE ***"
     i = 1 # i = length
     while n != 1:
         print(n)
