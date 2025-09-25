@@ -31,7 +31,6 @@ def product(n, term):
     >>> product(3, triple)    # 1*3 * 2*3 * 3*3
     162
     """
-    "*** YOUR CODE HERE ***"
     total, k = 1, 1
     while k <= n:
         total, k = mul(total, term(k)), k + 1
@@ -57,7 +56,6 @@ def accumulate(fuse, start, n, term):
     >>> accumulate(lambda x, y: x + y + 1, 2, 3, square)
     19
     """
-    "*** YOUR CODE HERE ***"
     # if n == 0:
     #     return start # 这段代码其实是多余的，n=0时，total也等于start
     total, k = start, 1
@@ -109,7 +107,6 @@ def make_repeater(f, n):
     >>> make_repeater(square, 3)(5) # square(square(square(5)))
     390625
     """
-    "*** YOUR CODE HERE ***"
     # 递归解法
     if n > 1:
         #        def compose(f, g):

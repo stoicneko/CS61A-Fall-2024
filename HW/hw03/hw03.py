@@ -24,7 +24,18 @@ def num_eights(n):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+
+    if n < 10:  # n % 10 == 0怎么不行,
+        if n == 8:
+            return 1
+        else:
+            return 0
+    else:
+        return num_eights(n // 10) + num_eights(n % 10)
+
+
+
+
 
 
 def digit_distance(n):
@@ -46,7 +57,13 @@ def digit_distance(n):
     ...       ['For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if n < 10:  
+        if n == 8:
+            return 1
+        else:
+            return 0
+    else:
+        return num_eights(n // 10) + num_eights(n % 10)
 
 
 def interleaved_sum(n, odd_func, even_func):
