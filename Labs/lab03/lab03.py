@@ -93,7 +93,23 @@ def double_eights(n):
     >>> check(LAB_SOURCE_FILE, 'double_eights', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+
+    # last = n % 10
+    # all_but_last = n // 10
+    # secTolast = (all_but_last) % 10
+    # if last == 8 and secTolast == 8:
+    #     return True
+    # elif all_but_last > 10:
+    #     return double_eights(all_but_last)
+    # else:
+    #     return False
+
+    if n < 10:
+        return False
+    elif n % 10 == 8 and (n // 10) % 10 == 8:
+        return True
+    else:
+        return double_eights(n // 10)
 
 
 def make_onion(f, g):
