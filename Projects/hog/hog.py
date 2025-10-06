@@ -18,29 +18,28 @@ def roll_dice(num_rolls, dice=six_sided):
     dice:       A function that simulates a single dice roll outcome. Defaults to the six sided dice.
     """
     # These assert statements ensure that num_rolls is a positive integer.
-    assert type(num_rolls) == int, 'num_rolls must be an integer.'
-    assert num_rolls > 0, 'Must roll at least once.'
+    assert type(num_rolls) == int, "num_rolls must be an integer."
+    assert num_rolls > 0, "Must roll at least once."
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
     # total, k = 0, 1
     # while k <= num_rolls:
     #     tmp = total
     #     total, k = total + dice(), k + 1
     #     if tmp == 1 or total - tmp == 1: # 这里不能直接返回， 否则会没有循环够num的次数
-    #         total = 1 # 注意是tmp == 1不是totoal
     # return total
-    # 实现的好丑陋。。 
+    # 实现的好丑陋。。
+    #         total = 1 # 注意是tmp == 1不是totoal
     # 4.11写到p9发现p1实现错了 // ，吗？
 
     total, k = 0, 1
     while k <= num_rolls:
         result = dice()
-        total, k = total + result, k+1
+        total, k = total + result, k + 1
         if result == 1:
             while k <= num_rolls:
                 result = dice()
                 k += 1
-            return 1       
+            return 1
     return total
 
     # total, k = 0, 1
@@ -63,9 +62,8 @@ def boar_brawl(player_score, opponent_score):
 
     """
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
-    a = player_score % 10 # player的个位数
-    b = opponent_score % pow(10, 2) // 10 # opponent的十位数
+    a = player_score % 10  # player的个位数
+    b = opponent_score % pow(10, 2) // 10  # opponent的十位数
     if a - b == 0:
         return 1
     else:
@@ -83,11 +81,10 @@ def take_turn(num_rolls, player_score, opponent_score, dice=six_sided):
     dice:            A function that simulates a single dice roll outcome.
     """
     # Leave these assert statements here; they help check for errors.
-    assert type(num_rolls) == int, 'num_rolls must be an integer.'
-    assert num_rolls >= 0, 'Cannot roll a negative number of dice in take_turn.'
-    assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
+    assert type(num_rolls) == int, "num_rolls must be an integer."
+    assert num_rolls >= 0, "Cannot roll a negative number of dice in take_turn."
+    assert num_rolls <= 10, "Cannot roll more than 10 dice."
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
     if num_rolls == 0:
         return boar_brawl(player_score, opponent_score)
     else:
@@ -102,6 +99,7 @@ def simple_update(num_rolls, player_score, opponent_score, dice=six_sided):
     score = player_score + take_turn(num_rolls, player_score, opponent_score, dice)
     return score
 
+
 def is_prime(n):
     """Return whether N is prime."""
     if n == 1:
@@ -113,20 +111,21 @@ def is_prime(n):
         k += 1
     return True
 
+
 def num_factors(n):
     """Return the number of factors of N, including 1 and N itself."""
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
     if n == 1:
         return 1
     else:
         k, total = 2, 2
-        while (k < n):
-            if n % k == 0: # 要计算的是n的factors, 注意该用哪个name
+        while k < n:
+            if n % k == 0:  # 要计算的是n的factors, 注意该用哪个name
                 total += 1
             k += 1
         return total
     # END PROBLEM 4
+
 
 def sus_points(score):
     """Return the new score of a player taking into account the Sus Fuss rule."""
@@ -139,6 +138,7 @@ def sus_points(score):
     else:
         return score
     # END PROBLEM 4
+
 
 def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the total score of a player who starts their turn with
@@ -157,8 +157,7 @@ def always_roll_5(score, opponent_score):
     return 5
 
 
-def play(strategy0, strategy1, update,
-         score0=0, score1=0, dice=six_sided, goal=GOAL):
+def play(strategy0, strategy1, update, score0=0, score1=0, dice=six_sided, goal=GOAL):
     """Simulate a game and return the final scores of both players, with
     Player 0's score first and Player 1's score second.
 
@@ -191,7 +190,7 @@ def play(strategy0, strategy1, update,
             num_rolls = strategy0(score0, score1)
             score0 = update(num_rolls, score0, score1, dice)
         else:
-            num_rolls = strategy1(score1, score0) # 一些小错 多check几遍
+            num_rolls = strategy1(score1, score0)  # 一些小错 多check几遍
             score1 = update(num_rolls, score1, score0, dice)
         who = 1 - who
     # END PROBLEM 5
@@ -222,7 +221,7 @@ def always_roll(n):
     # def g(x, y): # 是接受2个参数还是是复合进去两个函数需要figure out
     #         return n # 所以要读懂样例
     # return g
-    return lambda x, y: n # 相当于f(x, y) = n, 转化成数学语言会不会更容易理解些？
+    return lambda x, y: n  # 相当于f(x, y) = n, 转化成数学语言会不会更容易理解些？
     # END PROBLEM 6
 
 
@@ -253,8 +252,8 @@ def is_always_roll(strategy, goal=GOAL):
     False
     """
     # 返回的是布尔值，或返回的值只有两种情况且互斥对立，先找出一种情况, 先找简单的情况，比如这里False的情况更简单, 找到这个固定的值是多少
-    # BEGIN PROBLEM 7 
-    "*** YOUR CODE HERE ***" # 就是strategy(0, 0)
+    # BEGIN PROBLEM 7
+    "*** YOUR CODE HERE ***"  # 就是strategy(0, 0)
     score0 = 0
     while score0 < goal:
         score1 = 0
@@ -282,12 +281,14 @@ def make_averaged(original_function, times_called=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+
     # 最终返回的是一个函数, 该函数接受参数返回float
     def f(*args):
         total, k = 0, 1
         while k <= times_called:
             total, k = total + original_function(*args), k + 1
         return total / times_called
+
     return f
     # end problem 8
 
@@ -306,7 +307,7 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
     result, k = 1, 2
     max_score = averaged_dice(result, dice)
     while k <= 10:
-        # max_a = averaged_dice(k, dice) 
+        # max_a = averaged_dice(k, dice)
         # 还记得最初dice的特性吗 调用一次！可那是dice(), 这里是dice函数
         # 是不是引用的dice不一样导致的？
         # TIPS：print DEBUG
@@ -314,7 +315,7 @@ def max_scoring_num_rolls(dice=six_sided, times_called=1000):
         # 难道是遗忘的柯里？
         # 看报错， 是自己roll多了. 是的，如果代码正确应该刚好roll 55个
         # if averaged_dice(k, dice) > averaged_dice(result, dice): #应该就是这里，比较多调用了一次a_d函数
-        score = averaged_dice(k, dice) # 用一个name存储函数返回的值，这样就只会调用一次
+        score = averaged_dice(k, dice)  # 用一个name存储函数返回的值，这样就只会调用一次
         if score > max_score:
             max_score = score
             result = k
@@ -345,18 +346,17 @@ def average_win_rate(strategy, baseline=always_roll(6)):
 def run_experiments():
     """Run a series of strategy experiments and report results."""
     six_sided_max = max_scoring_num_rolls(six_sided)
-    print('Max scoring num rolls for six-sided dice:', six_sided_max)
+    print("Max scoring num rolls for six-sided dice:", six_sided_max)
 
-    print('always_roll(6) win rate:', average_win_rate(always_roll(6))) # near 0.5
-    print('catch_up win rate:', average_win_rate(catch_up))
-    print('always_roll(3) win rate:', average_win_rate(always_roll(3)))
-    print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
+    print("always_roll(6) win rate:", average_win_rate(always_roll(6)))  # near 0.5
+    print("catch_up win rate:", average_win_rate(catch_up))
+    print("always_roll(3) win rate:", average_win_rate(always_roll(3)))
+    print("always_roll(8) win rate:", average_win_rate(always_roll(8)))
 
-    print('boar_strategy win rate:', average_win_rate(boar_strategy))
-    print('sus_strategy win rate:', average_win_rate(sus_strategy))
-    print('final_strategy win rate:', average_win_rate(final_strategy))
+    print("boar_strategy win rate:", average_win_rate(boar_strategy))
+    print("sus_strategy win rate:", average_win_rate(sus_strategy))
+    print("final_strategy win rate:", average_win_rate(final_strategy))
     "*** You may add additional experiments as you wish ***"
-
 
 
 def boar_strategy(score, opponent_score, threshold=11, num_rolls=6):
@@ -401,13 +401,16 @@ def final_strategy(score, opponent_score):
 # NOTE: The function in this section does not need to be changed. It uses
 # features of Python not yet covered in the course.
 
+
 @main
 def run(*args):
     """Read in the command-line argument and calls corresponding functions."""
     import argparse
+
     parser = argparse.ArgumentParser(description="Play Hog")
-    parser.add_argument('--run_experiments', '-r', action='store_true',
-                        help='Runs strategy experiments')
+    parser.add_argument(
+        "--run_experiments", "-r", action="store_true", help="Runs strategy experiments"
+    )
 
     args = parser.parse_args()
 
